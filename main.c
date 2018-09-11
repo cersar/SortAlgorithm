@@ -53,6 +53,24 @@ void selectSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 
 }
 
+//插入排序
+void insertSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
+	int key;
+	int i, j;
+	for (i = start+1; i <= end; ++i) {
+		key = a[i];
+		cntDect++;
+		for (j = i - 1; j >= start&&a[j] > key; --j) {
+			a[j + 1] = a[j];
+			cntSwap++;
+		}
+		a[j + 1] = key;
+		cntSwap++;
+	}
+	//循环里统计的cntSwap为元素的移动次数，这里折算为swap次数时减半
+	cntSwap /= 2;
+}
+
 int main() {
 	clock_t startTime, endTime;
 	double  duration;
@@ -62,6 +80,7 @@ int main() {
 
 //      bubbleSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      slectSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
+//      insertSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 
 	endTime = clock();
 	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
