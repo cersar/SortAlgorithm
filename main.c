@@ -18,6 +18,7 @@ void printArray(int a[], int start, int end) {
 
 
 //冒泡排序
+
 void bubbleSort(int a[], int start, int end, long &cntDect,long &cntSwap) {
 	int flag;
 	for (int i = start; i <= end - 1; ++i) {
@@ -43,6 +44,7 @@ void selectSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 		cntDect++;
 		for (int j = i + 1; j <= end; j++) {
 			if (a[min] > a[j]) {
+				//这里忽略min序号变更的操作统计
 				min = j;
 			}
 		}
