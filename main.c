@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include<time.h>
 
@@ -8,6 +9,7 @@ void swap(int *i, int *j) {
 	*j = tmp;
 }
 
+//冒泡排序
 void bubbleSort(int a[], int start, int end) {
 	clock_t startTime, endTime;
 	startTime = clock();
@@ -34,6 +36,7 @@ void bubbleSort(int a[], int start, int end) {
 	printf("Total swap times: %d\n", cntSwap);
 }
 
+//选择排序
 void selectSort(int a[],int start,int end) {
 	clock_t startTime, endTime;
 	startTime = clock();
