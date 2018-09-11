@@ -9,13 +9,17 @@ void swap(int *i, int *j) {
 	*j = tmp;
 }
 
+void printArray(int a[], int start, int end) {
+	for (int i = start; i <= end; ++i) {
+		printf("%d\t", a[i]);
+	}
+	printf("\n");
+}
+
+
 //冒泡排序
-void bubbleSort(int a[], int start, int end) {
-	clock_t startTime, endTime;
-	startTime = clock();
-	double  duration;
+void bubbleSort(int a[], int start, int end, long &cntDect,long &cntSwap) {
 	int flag;
-	long cntDect = 0, cntSwap = 0;
 	for (int i = start; i <= end - 1; ++i) {
 		flag = false;
 		for (int j = start; j <= end - 1 - i; j++) {
@@ -29,23 +33,14 @@ void bubbleSort(int a[], int start, int end) {
 		if (flag == false) break;
 
 	}
-	endTime = clock();
-	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
-	printf("%f seconds\n", duration);
-	printf("Total detection times: %d\n", cntDect);
-	printf("Total swap times: %d\n", cntSwap);
 }
 
 //选择排序
-void selectSort(int a[],int start,int end) {
-	clock_t startTime, endTime;
-	startTime = clock();
-	double  duration;
+void selectSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	int min;
-	long cntDect = 0, cntSwap = 0;
-	for (int i = start; i <= end-1; ++i) {
+	for (int i = start; i <= end - 1; ++i) {
 		min = i;
-		for (int j = i+1; j <= end; j++) {
+		for (int j = i + 1; j <= end; j++) {
 			cntDect++;
 			if (a[min] > a[j]) {
 				min = j;
@@ -53,27 +48,28 @@ void selectSort(int a[],int start,int end) {
 		}
 		swap(&a[i], &a[min]);
 		cntSwap++;
-		
-	}
-	endTime = clock();
-	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
-	printf("%f seconds\n", duration);
-	printf("Total detection times: %d\n", cntDect);
-	printf("Total swap times: %d\n", cntSwap);
 
-}
-
-void printArray(int a[], int start, int end) {
-	for (int i = start; i <= end; ++i) {
-		printf("%d\t", a[i]);
 	}
-	printf("\n");
+
 }
 
 int main() {
-	int a[] = { 1,9,2,8,3,7,4,6 };
-//	bubbleSort(a, 0, sizeof(a) / sizeof(int) - 1);
-//	SelectSort(a, 0, sizeof(a) / sizeof(int) - 1);
+	clock_t startTime, endTime;
+	double  duration;
+	long cntDect = 0, cntSwap = 0;
+	int a[] = { 9,8,7,6,5,4,3,2,1 };
+	startTime = clock();
+
+//      bubbleSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
+//      slectSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
+
+	endTime = clock();
+	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+
 	printArray(a, 0, sizeof(a) / sizeof(int) - 1);
+
+	printf("%f seconds\n", duration);
+	printf("Total detection times: %d\n", cntDect);
+	printf("Total swap times: %d\n", cntSwap);
 	return 0;
 }
