@@ -22,8 +22,8 @@ void bubbleSort(int a[], int start, int end, long &cntDect,long &cntSwap) {
 	int flag;
 	for (int i = start; i <= end - 1; ++i) {
 		flag = false;
+		cntDect++;
 		for (int j = start; j <= end - 1 - i; j++) {
-			cntDect++;
 			if (a[j] > a[j + 1]) {
 				swap(&a[j], &a[j + 1]);
 				cntSwap++;
@@ -40,8 +40,8 @@ void selectSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	int min;
 	for (int i = start; i <= end - 1; ++i) {
 		min = i;
+		cntDect++;
 		for (int j = i + 1; j <= end; j++) {
-			cntDect++;
 			if (a[min] > a[j]) {
 				min = j;
 			}
