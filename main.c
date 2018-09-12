@@ -73,6 +73,48 @@ void insertSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	cntSwap /= 2;
 }
 
+void copy(int a[],int b[],int start,int end){
+	for(int i=start;i<=end;++i){
+		b[i]=a[i];
+	}
+}
+
+void merge(int a[],int b[],int start,int end,int mid,long &cntDect,long &cntSwap){
+	int i=start,j=mid+1; 
+	 for(int k=start;k<=end;k++)
+		if(i>mid){
+			copy(a,b,j,end);
+			break;
+		}
+		if(j>end){
+			copy(a,b,i,end);
+			break;
+		}
+		
+	    if(a[i]<a[j]){
+	    	cntSwap++;
+	    	b[k]=a[i++]; 
+		}else{
+			cntSwap++;
+			b[k++]=a[j++];
+		}		
+	}
+	
+	copy(b,a,start,end); 
+	
+}
+
+//归并排序
+void mergeSort(int a[], int tmp[],int start, int end, long &cntDect,long &cntSwap){
+	if(start<end){
+		int mid = (start+end)/2;
+		mergeSort(a,tmp,start,mid,cntDect,cntSwap);
+		mergeSort(a,tmp,mid+1,end,cntDect,cntSwap);
+		merge(a,tmp,start,end,mid,cntDect,cntSwap);
+	}
+} 
+
+
 int main() {
 	clock_t startTime, endTime;
 	double  duration;
