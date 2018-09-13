@@ -113,6 +113,29 @@ void mergeSort(int a[], int b[], int start, int end, long &cntDect, long &cntSwa
 
 }
 
+//shell排序
+void shellSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
+	int key;
+	int i, j,step=1;
+	
+	while(step<=end-start) step=step*3+1;
+	step=(step-1)/3;
+	while(step>=1){
+		for (i = start+step; i <= end; i++) {
+			int key = a[i];
+			for (j = i - step; j >= start&&a[j] > key; j-=step) {
+				cntDect++;
+				a[j + step]=a[j];
+				cntSwap++;
+			}
+			a[j+step]=key;
+			cntSwap++;
+		}
+		step=(step-1)/3;
+	}
+	
+}
+
 int main() {
 	clock_t startTime, endTime;
 	double  duration;
