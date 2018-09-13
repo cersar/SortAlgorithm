@@ -102,17 +102,6 @@ void merge(int a[], int b[], int start, int end, int mid, long &cntDect, long &c
 	}
 }
 
-//归并排序
-void mergeSort(int a[], int b[], int start, int end, long &cntDect, long &cntSwap) {
-	if (start < end) {
-		int mid = (start + end) / 2;
-		mergeSort(a, b, start, mid, cntDect, cntSwap);
-		mergeSort(a, b, mid+1, end, cntDect, cntSwap);
-		merge(a, b, start, end, mid, cntDect, cntSwap);
-	}
-
-}
-
 //shell排序
 void shellSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	int key;
@@ -134,6 +123,17 @@ void shellSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 		step=(step-1)/3;
 	}
 	
+}
+
+//归并排序
+void mergeSort(int a[], int b[], int start, int end, long &cntDect, long &cntSwap) {
+	if (start < end) {
+		int mid = (start + end) / 2;
+		mergeSort(a, b, start, mid, cntDect, cntSwap);
+		mergeSort(a, b, mid+1, end, cntDect, cntSwap);
+		merge(a, b, start, end, mid, cntDect, cntSwap);
+	}
+
 }
 
 int main() {
