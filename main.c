@@ -122,7 +122,7 @@ void shellSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	step=(step-1)/3;
 	while(step>=1){
 		for (i = start+step; i <= end; i++) {
-			int key = a[i];
+			key = a[i];
 			for (j = i - step; j >= start&&a[j] > key; j-=step) {
 				cntDect++;
 				a[j + step]=a[j];
