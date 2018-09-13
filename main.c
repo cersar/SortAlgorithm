@@ -146,7 +146,8 @@ int main() {
 //      bubbleSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      slectSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      insertSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
-//      insertSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
+//      mergeSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
+//      shellSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 
 	endTime = clock();
 	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
