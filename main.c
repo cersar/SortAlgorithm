@@ -171,6 +171,42 @@ void quickSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	}	
 }
 
+void max_heapify(int a[],int heapsize,int ind,long &cntDect, long &cntSwap){
+	int left = 2*ind+1,right=2*ind+2,maxInd = ind;
+	if(ind<heapsize){
+		cntDect++;
+	    if(left<heapsize&&a[left]>a[maxInd]){
+	    	maxInd = left; 
+		}	
+		if(right<heapsize&&a[right]>a[maxInd]){
+	    	maxInd = right; 
+		}
+		if(ind!=maxInd){
+			swap(&a[ind],&a[maxInd]);
+			cntDect++;
+		    max_heapify(a,heapsize,maxInd,cntDect,cntDect);	
+		}
+		
+	}
+	
+} 
+
+void build_maxheap(int a[],int len,long &cntDect, long &cntSwap){
+	for(int i=len/2-1;i>=0;--i){
+		max_heapify(a,len,i,cntDect,cntSwap);
+	}
+} 
+
+void heapSort(int a[],int len,long &cntDect, long &cntSwap){
+	build_maxheap(a,len,cntDect,cntSwap);
+	while(len>1){
+		swap(&a[0],&a[len-1]);
+		cntSwap++;
+		len--;
+		max_heapify(a,len,0,cntDect,cntSwap);
+	}
+}
+
 
 int main() {
 	clock_t startTime, endTime;
@@ -184,7 +220,8 @@ int main() {
 //      insertSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      mergeSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      shellSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
-
+//      quickSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
+//      heapSort(a,sizeof(a) / sizeof(int),cntDect,cntSwap);
 	endTime = clock();
 	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
 
