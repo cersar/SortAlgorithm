@@ -2,6 +2,8 @@
 #include<stdio.h>
 #include<time.h>
 
+#define MAX 100
+
 
 void swap(int *i, int *j) {
 	int tmp = *i;
@@ -207,12 +209,27 @@ void heapSort(int a[],int len,long &cntDect, long &cntSwap){
 	}
 }
 
+//计数排序（100以内的非负整数)
+void countSort(int a[], int b[],int start, int end,int c[],int M) {
+	for (int i = start; i <= end; ++i) {
+		c[a[i]]++;
+	}
+	for (int i = 1; i <= M; ++i) {
+		c[i] += c[i - 1];
+	}
+
+	for (int i = end; i >= start; --i) {
+		b[c[a[i]]-1]=a[i];
+		c[a[i]]--;
+	}
+}
+
 
 int main() {
 	clock_t startTime, endTime;
 	double  duration;
 	long cntDect = 0, cntSwap = 0;
-	int a[9] = { 9,8,7,6,5,4,3,2,1 },b[11];
+	int a[9] = { 1,8,7,6,5,4,3,2,1 },b[11],c[MAX+1] = { 0 };
 	startTime = clock();
 
 //      bubbleSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
@@ -222,6 +239,7 @@ int main() {
 //      shellSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      quickSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      heapSort(a,sizeof(a) / sizeof(int),cntDect,cntSwap);
+//      countSort(a,b, 0, sizeof(a) / sizeof(int) - 1, c,MAX);
 	endTime = clock();
 	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
 
