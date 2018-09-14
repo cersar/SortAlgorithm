@@ -225,6 +225,51 @@ void countSort(int a[], int b[],int start, int end,int c[],int M) {
 }
 
 
+int maxbit(int data[], int start, int end)
+{
+	int d = 1; //保存最大的位数
+	int p = 10;
+	for (int i = start; i <= end; ++i)
+	{
+		while (data[i] >= p)
+		{
+			p *= 10;
+			++d;
+		}
+	}
+	return d;
+}
+
+//基数排序
+void radixSort(int a[], int b[], int start, int end) {
+	int c[BASE] = { 0 };
+	int d = maxbits(a,start,end);
+	int radix = 1,key;
+	for (int i = 0; i < d; ++i) {
+		for (int j = 0; j < BASE; ++j) {
+			c[j] = 0;
+		}
+		for (int j = start; j <= end; ++j) {
+			key = (a[j] / radix) % 10;
+			c[key]++;
+		}
+		for (int j = 1; j < BASE; ++j) {
+			c[j] += c[j - 1];
+		}
+
+		for (int j = end; j >= start; --j) {
+			key = (a[j] / radix) % 10;
+			b[c[key] - 1] = a[j];
+			c[key]--;
+		}
+		for (int j = start; j <= end; ++j) {
+			a[j] = b[j];
+		}
+		radix *= 10;
+	}
+
+}
+
 int main() {
 	clock_t startTime, endTime;
 	double  duration;
@@ -240,6 +285,8 @@ int main() {
 //      quickSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      heapSort(a,sizeof(a) / sizeof(int),cntDect,cntSwap);
 //      countSort(a,b, 0, sizeof(a) / sizeof(int) - 1, c,MAX);
+//      radixSort(a,b, 0, sizeof(a) / sizeof(int) - 1);
+	
 	endTime = clock();
 	duration = (double)(endTime - startTime) / CLOCKS_PER_SEC;
 
