@@ -1,5 +1,5 @@
 // VariableLengthSort.cpp : 定义控制台应用程序的入口点。
-//
+//《算法导论》 8-3-a
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -76,6 +76,9 @@ void countSortByDigit(int a[], int start, int end,int ind) {
 		digit = getDigit(a[i], ind);
 		tmp[c[digit] - 1] = a[i];
 		c[digit]--;
+	}
+	for (int i = start; i <= end; ++i) {
+		a[i] = tmp[i-start];
 	}
 
 	if (tmp != NULL) {
