@@ -1,3 +1,4 @@
+//《算法导论》8-5
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -11,6 +12,9 @@ void swap(int *a, int *b) {
 
 //o(n/k)
 int Partation(int a[], int start, int end, int k) {
+	int p = rand() % ((end - start + 1) / k);
+	printf("rand=%d\n", p);
+	swap(&a[start], &a[start + k*p]);
 	int j = start - k;
 	int key = a[start];
 	for (int i = start; i <= end; i+=k) {
@@ -43,6 +47,7 @@ void SortK(int a[], int start, int end, int k) {
 int main() {
 	int a[] = { 9,8,6,4,5,7,1,3,2 };
 	int len = sizeof(a) / sizeof(int);
+	srand((unsigned)time(NULL));
 	SortK(a, 0, len - 1, 1);
 	for (int i = 0; i < len; ++i) {
 		printf("%d\t", a[i]);
