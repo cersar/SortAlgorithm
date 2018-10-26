@@ -139,6 +139,21 @@ void mergeSort(int a[], int b[], int start, int end, long &cntDect, long &cntSwa
 
 }
 
+//循环不变式:
+//1）a[start~p]<=key
+//2）a[q~end]>=key
+//3）start=<p<q<=end
+//循环结束时，p>=q，a[start~q]<=key，a[(q+1)~end]>=key，a[start~(p-1)]<=key，a[p~end]>=key
+//1.若key = a[start]，则第一次循环执行完之后一定有p=start，且跳出循环时一定有q∈[start,end)，p∈[start,end]此时应该返回q
+//证明q∈[start,end):
+	// 1)证明q>=start：注意到，每执行一次swap，意味着将小于等于key的值置于q之前，执行swap的次数>=0,
+	//当循环结束时执行swap次数>0时，则循环结束之前，q的前面至少有一个小于key的值，循环结束时必有q>=start;
+	//当循环结束时执行swap的次数为0时，说明外层while循环只执行一次，此时p=start=q,q>=start也成立
+	//综上，q>=start 
+	//2)证明q<end：(反证法)首先，显然q<=end,假设q=end，即外层while循环执行一次便跳出
+	//此时p=start&&p>=q,则q=start=end,这与start<end矛盾，故q<end; 
+//此时选q作为分割点，原因是结束时q∈[start,end),保证q+1和q不超出[start,end],防止死循环
+//2.若key = a[end]，则第一次循环执行完之后一定有q=end，且跳出循环时一定有p∈(start,end]，q∈[start,end]此时应该返回p
 int partation(int a[],int start,int end, long &cntDect, long &cntSwap){
 	int p = start-1,q=end+1,key=a[start];
 	while(1){
@@ -151,14 +166,6 @@ int partation(int a[],int start,int end, long &cntDect, long &cntSwap){
 		if(p<q){
 			swap(&a[p],&a[q]);
 		}else{
-			//这里选q作为分割点，原因是结束时q∈[start,end),保证q+1和q不超出[start,end],防止死循环 
-			//证明q∈[start,end):
-			// 1)证明q>=start：注意到，每执行一次swap，意味着将小于等于key的值置于q之前，执行swap的次数>=0,
-			//当循环结束时执行swap次数>0时，则循环结束之前，q的前面至少有一个小于key的值，循环结束时必有q>=start;
-			//当循环结束时执行swap的次数为0时，说明外层while循环只执行一次，此时p=start=q,q>=start也成立
-			//综上，q>=start 
-			//2)证明q<end：(反证法)首先，显然q<=end,假设q=end，即外层while循环执行一次便跳出
-			//此时p=start&&p>=q,则q=start=end,这与start<end矛盾，故q<end; 
 			return q;
 		}
 	}
