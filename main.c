@@ -167,6 +167,9 @@ int partation(int a[],int start,int end, long &cntDect, long &cntSwap){
 //快速排序
 void quickSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	if(start<end){
+		//由于p∈[start,end)，则1=<p-start+1<end-start+1
+		//同理，由于p+1∈(start,end],则1=<end-(p+1)+1<end-start+1
+		//即每一轮迭代排序数组的范围在减小，故对于所有的递归分支，一定可以达到start>=end，使得递归结束
 		int p = partation(a,start,end,cntDect,cntSwap);
 		quickSort(a,start,p,cntDect,cntSwap);
 		quickSort(a,p+1,end,cntDect,cntSwap);		
