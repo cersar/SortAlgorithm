@@ -171,6 +171,49 @@ int partation(int a[],int start,int end, long &cntDect, long &cntSwap){
 	}
 }
 
+//循环不变式（当迭代次数k>1时）：
+//1）p(k)<q(k)
+//2）a[start~p(k)]<=key
+//3）a[q(k)~end]>=key
+//循环结束时，均有p==q：
+//a）若key=array[q]，且p先自增，q再自减，则循环结束时有a[p]==a[q]>=key，a[start~(p-1)]<=key,a[p~end]==a[q~end]>=key
+//此时key和a[p]互换，将原a[p]>=key置于最右侧，将key置于p位置，互换之后有a[start~(p-1)]<=key，a[(p+1)~end]>=key，a[p]=key，达成区域的划分目标
+//证明：
+//1)当循环结束时的迭代次数k>1时，循环开始时有a[p(k)]<=key,a[q(k)]>=key,p(k)<right(k)，则跳出第一个while循环时，要么由于p(k+1)=q(k),要么array[p(k+1)]>key
+//由于p(k+1)=q(k)时，array[p(k+1)]=array[q(k)]>=key，综上，跳出第一个while循环时都有array[p(k+1)]>=key，而跳出第二个while循环时有p(k+1)==q(k+1),故循环
+//结束时有a[p]==a[q]>=key
+//2）当循环结束时迭代次数k=1时，循环开始时有a[q(1)]=key,p(1)<q(1),则跳出第一个while循环时，要么由于p(2)=q(1),要么array[p(2)]>key,即array[p(2)]>=key
+//而跳出第二个while循环时有p(2)==q(2),故循环结束时有a[p]==a[q]>=key
+//b）若key=array[p]，且q先自减，p再自增，则循环结束时有a[p]==a[q]<=key(证明同上)，a[start~(q+1)]>=key,a[(q+1)~end]==a[(p+1)~end]>=key
+//此时key和a[q]互换，将原a[q]<=key置于最左侧，将key置于q位置，互换之后有a[start~(q-1)]<=key，a[(q+1)~end]>=key，a[q]=key，达成区域的划分目标
+
+//1.key=array[p]，且p先自增，q再自减。
+//不能使用,原因：
+//1）当循环结束时的迭代次数k>1时，a[p]==a[q]>=key
+//2）当循环结束时迭代次数k=1时，a[p]>=key和a[p]<=key(key之后的所有元素都小于等于key)都有可能出现
+//2.key=array[q]，且q先自减，p再自增
+//原因同上
+int partation2(int* array, int start, int end)
+{
+	int p = start;
+	int q = end;
+	int key = array[end];
+	while (p < q)
+	{
+		while (p < q && array[p] <= key)
+		{
+			++p;
+		}
+		while (p < q && array[q] >= key)
+		{
+			--q;
+		}
+		swap(array[p], array[q]);
+	}
+	swap(array[p], array[end]);
+	return p;
+}
+
 //快速排序
 void quickSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	if(start<end){
