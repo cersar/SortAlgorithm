@@ -214,6 +214,52 @@ int partation2(int* array, int start, int end)
 	return p;
 }
 
+//循环不变式
+//1）p(k)<=q(k)
+//2）a[p(k)]=key
+//3）a[start~(p(k)-1)]<=key
+//4）a[(q(k)+1)~end]>=key
+//证明:
+//1）k=1时，p(1)=start，q(1)=end,a[p(1)]=key,显然有：a[start~(p(1))]<=key,a[(q(1)+1)~end]>=key
+//2）假设第k轮迭代有：p(k)<q(k),a[p(k)]=key,a[start~(p(k)-1)]<=key,a[(q(k)+1)~end]>=key
+//则第一个while循环结束时，有两种情况，都有a[(q(k+1)+1)~end]>=key：
+//a）p(k)<q(k+1)&&a[q(k+1)]<key，此时a[q(k+1)]和a[p(k)]进行交换，有a[q(k+1)]=key
+//b）p(k)=q(k+1)&&a[q(k+1)]=key，此时a[q(k+1)]和a[p(k)]进行交换，有a[p(k)]=a[q(k+1)]=key
+//即a[q(k+1)]=key，a[(q(k+1)+1)~end]>=key
+//进入第二个while循环，第二个while循环结束时，也有两种情况，这两种情况都有a[start~(p(k+1)-1)]<=key：
+//aa）p(k+1)<q(k+1)&&a[p(k+1)]>key
+//bb）p(k+1)=q(k+1)&&a[p(k+1)]=key
+//同理再次交换a[p(k+1)]和a[q(k+1)]后，有a[p(k+1)]=key
+//综上第k+1此迭代开始时，有：p(k+1)<=q(k+1),a[p(k+1)]=key，a[start~(p(k+1)-1)]<=key，a[(q(k+1)+1)~end]>=key，循环不变式依然成立
+
+//若第一次while循环没有达到循环终止条件，即进入第二次while时有p<q，a[p]<key，则第二次while循环p一定会执行自增
+//即要么在第一次循环q自减达到p>=q，要么在第二次while执行p自增
+//即每一次迭代p和q必定有一个增加后减小，可知循环终止条件p>=q一定会达到
+//循环结束时有p=q，a[p]=key，a[start~(p-1)]<=key，a[(p+1)~end]=a[(q+1)~end]>=key，即将a[start~end]使用a[p]=key划分成两部分，左侧<=key，右侧>=key
+int partation3(int* array, int start, int end)
+{
+	int p = start;
+	int q = end;
+	int key = array[p];
+	while (p < q)
+	{
+		//a[p]==key
+		while (p < q && array[q] >= key)
+		{
+			--q;
+		}
+		swap(array[p], array[q]);
+		//此时a[q]==key
+		while (p < q && array[p] <= key)
+		{
+			++p;
+		}
+		swap(array[p], array[q]);
+		//此时a[p]==key
+	}
+	return p;
+}
+
 //快速排序
 void quickSort(int a[], int start, int end, long &cntDect, long &cntSwap) {
 	if(start<end){
