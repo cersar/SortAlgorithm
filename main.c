@@ -167,7 +167,10 @@ void mergeSort(int a[], int b[], int start, int end, long &cntDect, long &cntSwa
 //可知a[start~q]<=key,a[(q+1)~end]>=key
 //又q∈[start,end),可以保证子问题的规模不断减小，不会发生死循环
 int partation(int a[], int start, int end) {
-	int p = start - 1, q = end + 1, key = a[start];
+	int p = start - 1, q = end + 1
+	int r = rand() % (end - start + 1);
+	swap(a[start], a[r + start]);
+        int key = a[start];
 	while (1) {
 		do {
 			p++;
@@ -212,6 +215,8 @@ int partation2(int* array, int start, int end)
 {
 	int p = start;
 	int q = end;
+	int r = rand() % (end - start + 1);
+	swap(a[start], a[r + start]);
 	int key = array[start];
 	while (p < q)
 	{
@@ -257,7 +262,9 @@ int partation3(int* array, int start, int end)
 {
 	int p = start;
 	int q = end;
-	int key = array[p];
+	int r = rand() % (end - start + 1);
+	swap(a[start], a[r + start]);
+	int key = array[start];
 	while (p < q)
 	{
 		//a[p]==key
@@ -392,6 +399,7 @@ int main() {
 	long cntDect = 0, cntSwap = 0;
 	int a[9] = { 1,8,7,6,5,4,3,2,1 },b[11],c[MAX+1] = { 0 };
 	startTime = clock();
+	srand((unsigned)time(NULL));
 
 //      bubbleSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
 //      slectSort(a, 0, sizeof(a) / sizeof(int) - 1, cntDect, cntSwap);
